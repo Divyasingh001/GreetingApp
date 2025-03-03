@@ -67,6 +67,15 @@ public class GreetingController {
 public Greeting updateGreetinginRepository(@PathVariable Long id, @RequestBody Greeting updatedGreeting) {
     return greetingService.updateGreeting(id, updatedGreeting.getMessage());
 }
+    @DeleteMapping("deletefromrepo/{id}")
+    public ResponseEntity<String> deleteGreetingbyrepository(@PathVariable Long id) {
+        try {
+            greetingService.deleteGreetingbyrepo(id);
+            return ResponseEntity.ok("Greeting deleted successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 
 }
