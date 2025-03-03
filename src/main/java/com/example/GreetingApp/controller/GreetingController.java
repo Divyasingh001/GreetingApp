@@ -21,6 +21,12 @@ public class GreetingController {
     public String getSimpleGreeting() {
         return greetingService.getSimpleGreeting();
     }
+    @GetMapping("/message")
+    public String getPersonalizedGreeting(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+        return greetingService.getGreeting(firstName, lastName);
+    }
     @GetMapping("/findall")
     public ResponseEntity<?> getAllGreetings() {
         try {
