@@ -10,6 +10,11 @@ public class Greeting {
     @Column(nullable = false)
     private String message;
 
+    public Greeting() {}
+
+    public Greeting(String message) {
+        this.message = message;
+    }
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

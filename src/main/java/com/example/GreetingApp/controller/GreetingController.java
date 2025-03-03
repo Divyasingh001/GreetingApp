@@ -21,11 +21,11 @@ public class GreetingController {
     public String getSimpleGreeting() {
         return greetingService.getSimpleGreeting();
     }
-    @GetMapping("/message")
-    public String getPersonalizedGreeting(
+    @PostMapping("/save")
+    public Greeting saveGreeting(
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName) {
-        return greetingService.getGreeting(firstName, lastName);
+        return greetingService.saveGreeting(firstName, lastName);
     }
     @GetMapping("/findall")
     public ResponseEntity<?> getAllGreetings() {
@@ -47,7 +47,6 @@ public class GreetingController {
         greeting.setMessage(greetingDetails.getMessage());
         return greetingRepository.save(greeting);
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGreeting(@PathVariable Long id) {
         Greeting greeting = greetingRepository.findById(id)
