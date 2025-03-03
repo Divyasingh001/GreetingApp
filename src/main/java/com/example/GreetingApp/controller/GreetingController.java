@@ -54,5 +54,9 @@ public class GreetingController {
         greetingRepository.delete(greeting);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("getId/{id}")
+    public Greeting getGreetingById(@PathVariable Long id) {
+        return greetingService.getGreetingById(id);
+    }
 
 }
