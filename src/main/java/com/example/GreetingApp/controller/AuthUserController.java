@@ -4,7 +4,6 @@ import com.example.GreetingApp.DTO.LoginDTO;
 import com.example.GreetingApp.DTO.ResponseDTO;
 import com.example.GreetingApp.model.AuthUser;
 import com.example.GreetingApp.service.AuthenticationService;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 //@RequestMapping("/auth")
-//http://localhost:8000/register(used for registering the user)
 public class AuthUserController {
     @Autowired
     AuthenticationService authenticationService;
@@ -24,7 +22,7 @@ public class AuthUserController {
         ResponseDTO responseUserDTO =new ResponseDTO("User details is submitted!",user);
         return new ResponseEntity<>(responseUserDTO, HttpStatus.CREATED);
     }
-//    http://localhost:8000/login(Used for login the user)
+
     @PostMapping("/login")
     public ResponseEntity<ResponseDTO> login(@Valid @RequestBody LoginDTO loginDTO){
         String result=authenticationService.login(loginDTO);
