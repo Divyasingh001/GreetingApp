@@ -51,7 +51,7 @@ public class AuthenticationService implements IAuthenticationService {
         Optional<AuthUser> user = Optional.ofNullable(authUserRepository.findByEmail(loginDTO.getEmail()));
 
         if (user.isPresent()) {
-            // Check if the password matches the encrypted password
+
             if (passwordEncoder.matches(loginDTO.getPassword(), user.get().getPassword())) {
                 emailSenderService.sendEmail(user.get().getEmail(), "Logged in Successfully!", "Hi "
                         + user.get().getFirstName() + ",\n\nYou have successfully logged in into Greeting App!");
@@ -64,4 +64,42 @@ public class AuthenticationService implements IAuthenticationService {
             throw new UserException("Sorry! Email or Password is incorrect!");
         }
     }
+    @Override
+    public String forgotPassword(String email, String newPassword) {
+        AuthUser user = authUserRepository.findByEmail(email);
+        if (user == null) {
+            throw new UserException("Sorry! We cannot find the user email: " + email);
+        }
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encryptedPassword);
+
+        authUserRepository.save(user);
+
+        emailSenderService.sendEmail(user.getEmail(),
+                "Password Reset Successful",
+                "Hi " + user.getFirstName() + ",\n\nYour password has been successfully changed!");
+
+        return "Password has been changed successfully!";
+    }
+    @Override
+    public String resetPassword(String email, String currentPassword, String newPassword) {
+        AuthUser user = authUserRepository.findByEmail(email);
+        if (user == null) {
+            throw new UserException("User not found with email: " + email);
+        }
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new UserException("Current password is incorrect!");
+        }
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encryptedPassword);
+        authUserRepository.save(user);
+
+        emailSenderService.sendEmail(user.getEmail(),
+                "Password Reset Successful",
+                "Hi " + user.getFirstName() + ",\n\nYour password has been successfully updated!");
+
+        return "Password reset successfully!";
+    }
+
 }
