@@ -81,25 +81,5 @@ public class AuthenticationService implements IAuthenticationService {
 
         return "Password has been changed successfully!";
     }
-    @Override
-    public String resetPassword(String email, String currentPassword, String newPassword) {
-        AuthUser user = authUserRepository.findByEmail(email);
-        if (user == null) {
-            throw new UserException("User not found with email: " + email);
-        }
-
-        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-            throw new UserException("Current password is incorrect!");
-        }
-        String encryptedPassword = passwordEncoder.encode(newPassword);
-        user.setPassword(encryptedPassword);
-        authUserRepository.save(user);
-
-        emailSenderService.sendEmail(user.getEmail(),
-                "Password Reset Successful",
-                "Hi " + user.getFirstName() + ",\n\nYour password has been successfully updated!");
-
-        return "Password reset successfully!";
-    }
 
 }
