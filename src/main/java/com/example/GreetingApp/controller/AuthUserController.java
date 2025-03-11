@@ -1,5 +1,6 @@
 package com.example.GreetingApp.controller;
 import com.example.GreetingApp.DTO.*;
+import com.example.GreetingApp.Interface.IAuthenticationService;
 import com.example.GreetingApp.model.AuthUser;
 import com.example.GreetingApp.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -14,7 +15,7 @@ import java.util.Map;
 //@RequestMapping("/auth")
 public class AuthUserController {
     @Autowired
-    AuthenticationService authenticationService;
+    IAuthenticationService authenticationService;
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@Valid @RequestBody AuthUserDTO userDTO) throws Exception{
         AuthUser user=authenticationService.register(userDTO);

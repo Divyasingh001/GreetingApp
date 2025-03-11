@@ -1,8 +1,10 @@
 package com.example.GreetingApp.controller;
 
 import com.example.GreetingApp.Exception.ResourceNotFoundException;
+import com.example.GreetingApp.Interface.IGreetingService;
 import com.example.GreetingApp.model.Greeting;
 import com.example.GreetingApp.service.GreetingServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/greetings")
 public class GreetingController {
-
-    private final GreetingServices greetingService;
+     @Autowired
+     IGreetingService greetingService;
 
     public GreetingController(GreetingServices greetingService) {
         this.greetingService = greetingService;
