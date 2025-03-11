@@ -191,3 +191,24 @@ Caused by: org.hibernate.HibernateException: Unable to determine Dialect without
 2025-03-12 01:38:18 [http-nio-8000-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
 2025-03-12 01:39:14 [http-nio-8000-exec-6] INFO  c.e.G.service.GreetingServices - Saving greeting for firstName: null, lastName: null
 2025-03-12 01:39:14 [http-nio-8000-exec-6] INFO  c.e.G.service.GreetingServices - Greeting saved successfully with ID: 1
+2025-03-12 01:43:39 [http-nio-8000-exec-4] INFO  c.e.G.service.GreetingServices - Fetching simple greeting...
+2025-03-12 01:46:54 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-12 01:46:54 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-12 01:46:54 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-12 01:46:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-12 01:46:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-12 01:47:00 [main] INFO  c.e.G.GreetingAppApplication - Starting GreetingAppApplication using Java 23.0.2 with PID 29124 (C:\Users\Divya Singh\OneDrive\Desktop\GreetingApp\GreetingApp\GreetingApp\target\classes started by root in C:\Users\Divya Singh\OneDrive\Desktop\GreetingApp\GreetingApp\GreetingApp)
+2025-03-12 01:47:00 [main] DEBUG c.e.G.GreetingAppApplication - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-12 01:47:00 [main] INFO  c.e.G.GreetingAppApplication - No active profile set, falling back to 1 default profile: "default"
+2025-03-12 01:47:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-12 01:47:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 104 ms. Found 2 JPA repository interfaces.
+2025-03-12 01:47:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8000 (http)
+2025-03-12 01:47:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-12 01:47:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-12 01:47:03 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-12 01:47:03 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3082 ms
+2025-03-12 01:47:03 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-12 01:47:04 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-12 01:47:04 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-12 01:47:04 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-12 01:47:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...

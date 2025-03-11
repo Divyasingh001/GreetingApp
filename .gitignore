@@ -1,3 +1,9 @@
+# Logs
+logs/
+*.log
+logs/**/*.log
+logs/**/*
+!logs/.gitkeep  # If you want to track an empty 'logs' folder for structure
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
