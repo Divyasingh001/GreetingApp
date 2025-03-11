@@ -1,4 +1,6 @@
 package com.example.GreetingApp.service;
+
+import com.example.GreetingApp.Interface.IGreetingService;
 import com.example.GreetingApp.model.Greeting;
 import com.example.GreetingApp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,45 +10,60 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GreetingServices {
+public class GreetingServices implements IGreetingService {
+
     @Autowired
     private GreetingRepository greetingRepository;
+
+    @Override
     public String getSimpleGreeting() {
-        return "Hello World";
+        return "Hello World!";
     }
+
+    @Override
+    public Greeting addGreeting(String message) {
+        Greeting greeting = new Greeting(message != null ? message : "Hello World!");
+        return greetingRepository.save(greeting);
+    }
+
+    @Override
     public Greeting saveGreeting(String firstName, String lastName) {
-        String message;
+        String message = "Hello";
         if (firstName != null && lastName != null) {
-            message = "Hello, " + firstName + " " + lastName + "!";
+            message += ", " + firstName + " " + lastName + "!";
         } else if (firstName != null) {
-            message = "Hello, " + firstName + "!";
+            message += ", " + firstName + "!";
         } else if (lastName != null) {
-            message = "Hello, " + lastName + "!";
+            message += ", " + lastName + "!";
         } else {
-            message = "Hello World!";
+            message += " World!";
         }
         Greeting greeting = new Greeting(message);
         return greetingRepository.save(greeting);
     }
-    public Greeting getGreetingById(Long id) {
-        return greetingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
+
+    @Override
+    public Optional<Greeting> getGreetingById(Long id) {
+        return greetingRepository.findById(id);
     }
+
+    @Override
     public List<Greeting> getAllGreetings() {
         return greetingRepository.findAll();
     }
-    public Greeting updateGreeting(Long id, String newMessage) {
-        Optional<Greeting> existingGreeting = greetingRepository.findById(id);
 
-        if (existingGreeting.isPresent()) {
-            Greeting greeting = existingGreeting.get();
-            greeting.setMessage(newMessage);  // Update message
-            return greetingRepository.save(greeting);  // Save updated greeting
-        } else {
-            throw new RuntimeException("Greeting not found with id: " + id);
-        }
+    @Override
+    public Greeting updateGreeting(Long id, String newMessage) {
+        return greetingRepository.findById(id)
+                .map(greeting -> {
+                    greeting.setMessage(newMessage);
+                    return greetingRepository.save(greeting);
+                })
+                .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
     }
-    public void deleteGreetingbyrepo(Long id) {
+
+    @Override
+    public void deleteGreeting(Long id) {
         if (greetingRepository.existsById(id)) {
             greetingRepository.deleteById(id);
         } else {
