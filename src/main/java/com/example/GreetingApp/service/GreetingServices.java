@@ -1,10 +1,15 @@
 package com.example.GreetingApp.service;
+
 import com.example.GreetingApp.Exception.UserException;
 import com.example.GreetingApp.Interface.IGreetingService;
 import com.example.GreetingApp.model.Greeting;
 import com.example.GreetingApp.repository.GreetingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +17,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@EnableCaching
 public class GreetingServices implements IGreetingService {
 
     @Autowired
@@ -24,6 +30,7 @@ public class GreetingServices implements IGreetingService {
     }
 
     @Override
+    @CachePut(value = "greetings", key = "#result.id")
     public Greeting addGreeting(String message) {
         try {
             log.info("Adding new greeting with message: {}", message);
@@ -38,6 +45,7 @@ public class GreetingServices implements IGreetingService {
     }
 
     @Override
+    @CachePut(value = "greetings", key = "#result.id")
     public Greeting saveGreeting(String firstName, String lastName) {
         try {
             log.info("Saving greeting for firstName: {}, lastName: {}", firstName, lastName);
@@ -65,6 +73,7 @@ public class GreetingServices implements IGreetingService {
     }
 
     @Override
+    @Cacheable(value = "greetings", key = "#id")
     public Optional<Greeting> getGreetingById(Long id) {
         try {
             log.info("Fetching greeting with ID: {}", id);
@@ -83,6 +92,7 @@ public class GreetingServices implements IGreetingService {
     }
 
     @Override
+    @Cacheable(value = "greetings")
     public List<Greeting> getAllGreetings() {
         try {
             log.info("Fetching all greetings...");
@@ -96,6 +106,7 @@ public class GreetingServices implements IGreetingService {
     }
 
     @Override
+    @CachePut(value = "greetings", key = "#id")
     public Greeting updateGreeting(Long id, String newMessage) {
         try {
             log.info("Updating greeting with ID: {} to new message: {}", id, newMessage);
@@ -117,6 +128,7 @@ public class GreetingServices implements IGreetingService {
     }
 
     @Override
+    @CacheEvict(value = "greetings", key = "#id")
     public void deleteGreeting(Long id) {
         try {
             log.info("Attempting to delete greeting with ID: {}", id);
@@ -131,5 +143,10 @@ public class GreetingServices implements IGreetingService {
             log.error("Failed to delete greeting, Error: {}", e.getMessage());
             throw new UserException("Error while deleting greeting: " + e.getMessage());
         }
+    }
+
+    @CacheEvict(value = "greetings", allEntries = true)
+    public void clearAllCache() {
+        log.info("Clearing all cache entries for greetings...");
     }
 }

@@ -1,8 +1,10 @@
 package com.example.GreetingApp.model;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-public class Greeting  {
+public class Greeting implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
